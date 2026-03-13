@@ -1,0 +1,562 @@
+{
+  "global_include_keywords": [
+    "夏令营",
+    "预推免",
+    "推免",
+    "直博",
+    "优秀大学生",
+    "研究生招生",
+    "招生简章"
+  ],
+  "global_exclude_keywords": [
+    "本科招生",
+    "成人教育",
+    "高考",
+    "招聘",
+    "博士后"
+  ],
+  "global_experience_include_keywords": [
+    "保研经验",
+    "夏令营经验",
+    "预推免经验",
+    "面经",
+    "机试",
+    "计算机",
+    "人工智能",
+    "导师",
+    "实验室",
+    "评价"
+  ],
+  "global_experience_exclude_keywords": [
+    "广告",
+    "付费咨询",
+    "招聘"
+  ],
+  "sources": [
+    {
+      "content_kind": "official",
+      "tier": "超级冲",
+      "school": "清华大学",
+      "name": "清华大学研究生招生网",
+      "url": "https://yz.tsinghua.edu.cn/",
+      "include_keywords": [
+        "夏令营",
+        "推免",
+        "直博",
+        "计算机",
+        "人工智能"
+      ],
+      "exclude_keywords": []
+    },
+    {
+      "content_kind": "official",
+      "tier": "超级冲",
+      "school": "北京大学",
+      "name": "北京大学招生网（研究生相关）",
+      "url": "https://admission.pku.edu.cn/",
+      "include_keywords": [
+        "夏令营",
+        "推免",
+        "直博",
+        "信息",
+        "智能"
+      ],
+      "exclude_keywords": []
+    },
+    {
+      "content_kind": "official",
+      "tier": "超级冲",
+      "school": "上海交通大学",
+      "name": "上海交通大学研究生招生网",
+      "url": "https://yzb.sjtu.edu.cn/",
+      "include_keywords": [
+        "夏令营",
+        "推免",
+        "直博",
+        "计算机",
+        "人工智能"
+      ],
+      "exclude_keywords": []
+    },
+    {
+      "content_kind": "official",
+      "tier": "冲",
+      "school": "南京大学",
+      "name": "南京大学研究生院",
+      "url": "https://grawww.nju.edu.cn/",
+      "include_keywords": [
+        "夏令营",
+        "推免",
+        "直博",
+        "计算机",
+        "智能"
+      ],
+      "exclude_keywords": []
+    },
+    {
+      "content_kind": "official",
+      "tier": "冲",
+      "school": "中国科学技术大学",
+      "name": "中国科学技术大学研究生招生在线",
+      "url": "https://yz.ustc.edu.cn/",
+      "include_keywords": [
+        "夏令营",
+        "推免",
+        "直博",
+        "计算机",
+        "人工智能"
+      ],
+      "exclude_keywords": []
+    },
+    {
+      "content_kind": "official",
+      "tier": "冲",
+      "school": "北京航空航天大学",
+      "name": "北京航空航天大学研究生招生信息网",
+      "url": "https://yzb.buaa.edu.cn/",
+      "include_keywords": [
+        "夏令营",
+        "推免",
+        "直博",
+        "计算机",
+        "人工智能"
+      ],
+      "exclude_keywords": []
+    },
+    {
+      "content_kind": "official",
+      "tier": "稳",
+      "school": "东南大学",
+      "name": "东南大学研究生招生网",
+      "url": "https://yzb.seu.edu.cn/",
+      "include_keywords": [
+        "夏令营",
+        "推免",
+        "直博",
+        "计算机",
+        "电子信息"
+      ],
+      "exclude_keywords": []
+    },
+    {
+      "content_kind": "official",
+      "tier": "稳",
+      "school": "同济大学",
+      "name": "同济大学研究生招生网",
+      "url": "https://yz.tongji.edu.cn/",
+      "include_keywords": [
+        "夏令营",
+        "推免",
+        "直博",
+        "电子信息",
+        "计算机"
+      ],
+      "exclude_keywords": []
+    },
+    {
+      "content_kind": "official",
+      "tier": "稳",
+      "school": "华东师范大学",
+      "name": "华东师范大学研究生招生信息网",
+      "url": "https://yjszs.ecnu.edu.cn/",
+      "include_keywords": [
+        "夏令营",
+        "推免",
+        "直博",
+        "软件",
+        "数据"
+      ],
+      "exclude_keywords": []
+    },
+    {
+      "content_kind": "official",
+      "tier": "稳",
+      "school": "中山大学",
+      "name": "中山大学研究生招生网",
+      "url": "https://graduate.sysu.edu.cn/zsw/",
+      "include_keywords": [
+        "夏令营",
+        "推免",
+        "直博",
+        "计算机",
+        "人工智能"
+      ],
+      "exclude_keywords": []
+    },
+    {
+      "content_kind": "official",
+      "tier": "稳",
+      "school": "哈尔滨工业大学",
+      "name": "哈尔滨工业大学研究生招生网",
+      "url": "https://yzb.hit.edu.cn/",
+      "include_keywords": [
+        "夏令营",
+        "推免",
+        "直博",
+        "计算机",
+        "深圳"
+      ],
+      "exclude_keywords": []
+    },
+    {
+      "content_kind": "experience",
+      "platform": "GitHub Pages",
+      "tier": "冲",
+      "school": "中国科学技术大学",
+      "name": "中科大考核经验汇总（GitHub Pages）",
+      "url": "https://cloudinwind.github.io/%E4%BF%9D%E7%A0%94%E5%9C%88/%E8%BE%85%E5%AF%BC%E5%85%A8%E6%B5%81%E7%A8%8B/%E9%99%A2%E6%A0%A1%E8%80%83%E6%A0%B8%E7%BB%8F%E9%AA%8C/7.%E4%B8%AD%E7%A7%91%E5%A4%A7/",
+      "follow_links": false,
+      "include_keywords": [
+        "考核经验",
+        "中科大",
+        "面试",
+        "机试",
+        "保研"
+      ],
+      "exclude_keywords": [
+        "广告",
+        "付费"
+      ]
+    },
+    {
+      "content_kind": "experience",
+      "platform": "GitHub Pages",
+      "tier": "冲",
+      "school": "北京航空航天大学",
+      "name": "北航考核经验汇总（GitHub Pages）",
+      "url": "https://cloudinwind.github.io/%E4%BF%9D%E7%A0%94%E5%9C%88/%E8%BE%85%E5%AF%BC%E5%85%A8%E6%B5%81%E7%A8%8B/%E9%99%A2%E6%A0%A1%E8%80%83%E6%A0%B8%E7%BB%8F%E9%AA%8C/9.%20%E5%8C%97%E4%BA%AC%E8%88%AA%E7%A9%BA%E8%88%AA%E5%A4%A9%E5%A4%A7%E5%AD%A6/",
+      "follow_links": false,
+      "include_keywords": [
+        "保研",
+        "北航",
+        "面试",
+        "机试",
+        "考核经验"
+      ],
+      "exclude_keywords": [
+        "广告",
+        "付费"
+      ]
+    },
+    {
+      "content_kind": "experience",
+      "platform": "CSDN",
+      "tier": "冲",
+      "school": "南京大学",
+      "name": "南大计算机保研经验（CSDN）",
+      "url": "https://blog.csdn.net/m0_63997099/article/details/142407853",
+      "follow_links": false,
+      "include_keywords": [
+        "保研经验",
+        "南京大学",
+        "南大",
+        "计算机",
+        "机试",
+        "面试"
+      ],
+      "exclude_keywords": [
+        "广告",
+        "付费"
+      ]
+    },
+    {
+      "content_kind": "experience",
+      "platform": "GitHub Pages",
+      "tier": "稳",
+      "school": "同济大学",
+      "name": "同济大学考核经验汇总（GitHub Pages）",
+      "url": "https://cloudinwind.github.io/%E4%BF%9D%E7%A0%94%E5%9C%88/%E8%BE%85%E5%AF%BC%E5%85%A8%E6%B5%81%E7%A8%8B/%E9%99%A2%E6%A0%A1%E8%80%83%E6%A0%B8%E7%BB%8F%E9%AA%8C/12.%E5%90%8C%E6%B5%8E%E5%A4%A7%E5%AD%A6/",
+      "follow_links": false,
+      "include_keywords": [
+        "考核经验",
+        "同济大学",
+        "面试",
+        "机试",
+        "保研"
+      ],
+      "exclude_keywords": [
+        "广告",
+        "付费"
+      ]
+    },
+    {
+      "content_kind": "experience",
+      "platform": "DICS Community",
+      "tier": "稳",
+      "school": "同济大学",
+      "name": "同济大学计算机保研经验（社区）",
+      "url": "https://diicsu.site/d/102-2025nian-26jie-ji-suan-ji-bao-yan-jing-yan-tie",
+      "follow_links": false,
+      "include_keywords": [
+        "保研经验",
+        "同济大学",
+        "计算机"
+      ],
+      "exclude_keywords": [
+        "广告",
+        "付费"
+      ]
+    },
+    {
+      "content_kind": "experience",
+      "platform": "GitHub Pages",
+      "tier": "稳",
+      "school": "哈尔滨工业大学",
+      "name": "哈工大考核经验汇总（GitHub Pages）",
+      "url": "https://cloudinwind.github.io/%E4%BF%9D%E7%A0%94%E5%9C%88/%E8%BE%85%E5%AF%BC%E5%85%A8%E6%B5%81%E7%A8%8B/%E9%99%A2%E6%A0%A1%E8%80%83%E6%A0%B8%E7%BB%8F%E9%AA%8C/13.%E5%93%88%E5%B0%94%E6%BB%A8%E5%B7%A5%E4%B8%9A%E5%A4%A7%E5%AD%A6/",
+      "follow_links": false,
+      "include_keywords": [
+        "保研",
+        "哈工大",
+        "面试",
+        "机试",
+        "考核经验"
+      ],
+      "exclude_keywords": [
+        "广告",
+        "付费"
+      ]
+    },
+    {
+      "content_kind": "experience",
+      "platform": "GitHub Pages",
+      "tier": "稳",
+      "school": "中山大学",
+      "name": "中山大学考核经验汇总（GitHub Pages）",
+      "url": "https://cloudinwind.github.io/%E4%BF%9D%E7%A0%94%E5%9C%88/%E8%BE%85%E5%AF%BC%E5%85%A8%E6%B5%81%E7%A8%8B/%E9%99%A2%E6%A0%A1%E8%80%83%E6%A0%B8%E7%BB%8F%E9%AA%8C/16.%E4%B8%AD%E5%B1%B1%E5%A4%A7%E5%AD%A6/",
+      "follow_links": false,
+      "include_keywords": [
+        "保研",
+        "中山大学",
+        "面试",
+        "机试",
+        "考核经验"
+      ],
+      "exclude_keywords": [
+        "广告",
+        "付费"
+      ]
+    },
+    {
+      "content_kind": "experience",
+      "platform": "ReadTheDocs",
+      "tier": "超级冲",
+      "school": "清华大学",
+      "name": "清华软件学院保研解析（ReadTheDocs）",
+      "url": "https://postgraduate-recommendation.readthedocs.io/zh-cn/latest/schools/thu/ss.html",
+      "follow_links": false,
+      "include_keywords": [
+        "清华大学",
+        "软件学院",
+        "推免",
+        "保研",
+        "经验"
+      ],
+      "exclude_keywords": [
+        "广告",
+        "付费"
+      ]
+    },
+    {
+      "content_kind": "experience",
+      "platform": "GitHub Pages",
+      "tier": "超级冲",
+      "school": "上海交通大学",
+      "name": "上交大学校考核经验汇总（GitHub Pages）",
+      "url": "https://cloudinwind.github.io/%E4%BF%9D%E7%A0%94%E5%9C%88/%E8%BE%85%E5%AF%BC%E5%85%A8%E6%B5%81%E7%A8%8B/%E9%99%A2%E6%A0%A1%E8%80%83%E6%A0%B8%E7%BB%8F%E9%AA%8C/3.%E4%B8%8A%E6%B5%B7%E4%BA%A4%E9%80%9A%E5%A4%A7%E5%AD%A6/",
+      "follow_links": false,
+      "include_keywords": [
+        "保研",
+        "上海交通大学",
+        "上交",
+        "面试",
+        "机试",
+        "考核经验"
+      ],
+      "exclude_keywords": [
+        "广告",
+        "付费"
+      ]
+    },
+    {
+      "content_kind": "official",
+      "tier": "超级冲",
+      "school": "复旦大学",
+      "name": "复旦大学研究生招生网",
+      "url": "https://gsao.fudan.edu.cn/",
+      "include_keywords": [
+        "夏令营",
+        "推免",
+        "直博",
+        "计算机",
+        "人工智能"
+      ],
+      "exclude_keywords": []
+    },
+    {
+      "content_kind": "official",
+      "tier": "冲",
+      "school": "武汉大学",
+      "name": "武汉大学研究生招生服务系统",
+      "url": "https://yz.whu.edu.cn/",
+      "include_keywords": [
+        "夏令营",
+        "推免",
+        "直博",
+        "计算机",
+        "人工智能"
+      ],
+      "exclude_keywords": []
+    },
+    {
+      "content_kind": "official",
+      "tier": "冲",
+      "school": "华中科技大学",
+      "name": "华中科技大学研究生招生信息网",
+      "url": "https://gszs.hust.edu.cn/",
+      "include_keywords": [
+        "夏令营",
+        "推免",
+        "直博",
+        "计算机",
+        "人工智能"
+      ],
+      "exclude_keywords": []
+    },
+    {
+      "content_kind": "official",
+      "tier": "冲",
+      "school": "西安交通大学",
+      "name": "西安交通大学研究生招生信息网",
+      "url": "https://yz.xjtu.edu.cn/",
+      "include_keywords": [
+        "夏令营",
+        "推免",
+        "直博",
+        "计算机",
+        "人工智能"
+      ],
+      "exclude_keywords": []
+    },
+    {
+      "content_kind": "official",
+      "tier": "冲",
+      "school": "电子科技大学",
+      "name": "电子科技大学研究生招生网",
+      "url": "https://yz.uestc.edu.cn/",
+      "include_keywords": [
+        "夏令营",
+        "推免",
+        "直博",
+        "计算机",
+        "人工智能"
+      ],
+      "exclude_keywords": []
+    },
+    {
+      "content_kind": "official",
+      "tier": "冲",
+      "school": "南开大学",
+      "name": "南开大学研究生招生网",
+      "url": "https://yzb.nankai.edu.cn/",
+      "include_keywords": [
+        "夏令营",
+        "推免",
+        "直博",
+        "计算机",
+        "人工智能"
+      ],
+      "exclude_keywords": []
+    },
+    {
+      "content_kind": "official",
+      "tier": "稳",
+      "school": "山东大学",
+      "name": "山东大学研究生招生信息网",
+      "url": "https://www.yz.sdu.edu.cn/",
+      "include_keywords": [
+        "夏令营",
+        "推免",
+        "直博",
+        "计算机",
+        "软件"
+      ],
+      "exclude_keywords": []
+    },
+    {
+      "content_kind": "official",
+      "tier": "稳",
+      "school": "厦门大学",
+      "name": "厦门大学招生网",
+      "url": "https://zs.xmu.edu.cn/",
+      "include_keywords": [
+        "夏令营",
+        "推免",
+        "直博",
+        "计算机",
+        "人工智能"
+      ],
+      "exclude_keywords": []
+    },
+    {
+      "content_kind": "official",
+      "tier": "稳",
+      "school": "北京理工大学",
+      "name": "北京理工大学研究生院招生工作",
+      "url": "https://grd.bit.edu.cn/zsgz/index.htm",
+      "include_keywords": [
+        "夏令营",
+        "推免",
+        "直博",
+        "计算机",
+        "电子信息"
+      ],
+      "exclude_keywords": []
+    },
+    {
+      "content_kind": "official",
+      "tier": "稳",
+      "school": "重庆大学",
+      "name": "重庆大学研究生招生网",
+      "url": "https://yz.cqu.edu.cn/",
+      "include_keywords": [
+        "夏令营",
+        "推免",
+        "直博",
+        "计算机",
+        "电子信息"
+      ],
+      "exclude_keywords": []
+    },
+    {
+      "content_kind": "official",
+      "tier": "稳",
+      "school": "湖南大学",
+      "name": "湖南大学研究生院",
+      "url": "https://gra.hnu.edu.cn/",
+      "include_keywords": [
+        "夏令营",
+        "推免",
+        "直博",
+        "计算机",
+        "软件"
+      ],
+      "exclude_keywords": []
+    },
+    {
+      "content_kind": "official",
+      "tier": "稳",
+      "school": "吉林大学",
+      "name": "吉林大学招生网",
+      "url": "https://zsb.jlu.edu.cn/",
+      "include_keywords": [
+        "夏令营",
+        "推免",
+        "直博",
+        "计算机",
+        "人工智能"
+      ],
+      "exclude_keywords": []
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "global_include_keywords": ["夏令营", "预推免", "推免", "直博", "招生"],
+  "global_exclude_keywords": ["本科招生", "成考", "高考", "招聘"],
+  "global_experience_include_keywords": ["保研经验", "夏令营经验", "预推免经验", "面经", "直博经验", "导师", "实验室", "评价"],
+  "global_experience_exclude_keywords": ["广告", "付费咨询", "招聘"],
+  "sources": [
+    {
+      "content_kind": "official",
+      "name": "某大学计算机学院通知页",
+      "url": "https://example.edu.cn/notice",
+      "include_keywords": ["夏令营", "预推免", "推免直博"],
+      "exclude_keywords": ["本科生", "冬令营"],
+      "discipline_keywords": ["计算机", "人工智能", "软件工程"]
+    },
+    {
+      "content_kind": "experience",
+      "platform": "知乎",
+      "school": "某大学",
+      "name": "某大学计算机保研经验页",
+      "url": "https://example.com/zhihu-post-or-curated-list",
+      "follow_links": false,
+      "include_keywords": ["保研经验", "夏令营", "预推免", "计算机", "面经"],
+      "exclude_keywords": ["广告", "付费"],
+      "discipline_keywords": ["计算机视觉", "多模态", "人工智能"]
+    }
+  ]
+}

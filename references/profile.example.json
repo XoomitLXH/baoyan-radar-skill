@@ -1,0 +1,63 @@
+{
+  "student_name": "示例同学",
+  "school": "某大学",
+  "major": "计算机科学与技术",
+  "year": "大三",
+  "rank": "12/210",
+  "gpa": "3.82/4.0",
+  "english": {
+    "cet4": "580",
+    "cet6": "530",
+    "toefl": "",
+    "ielts": ""
+  },
+  "target_disciplines": [
+    "计算机科学与技术",
+    "人工智能",
+    "软件工程"
+  ],
+  "research_keywords": [
+    "机器学习",
+    "多模态",
+    "数据挖掘"
+  ],
+  "project_keywords": [
+    "推荐系统",
+    "大语言模型",
+    "时序预测"
+  ],
+  "projects": [
+    {
+      "name": "项目A",
+      "summary": "详细介绍项目背景、方法、你负责的部分和结果。",
+      "role": "负责模型设计与实验",
+      "result": "形成 demo / 指标提升 / 论文投稿",
+      "keywords": ["图神经网络", "推荐系统"]
+    },
+    {
+      "name": "项目B",
+      "summary": "详细介绍第二个项目的任务、方法和结果。",
+      "role": "负责数据处理与实验复现",
+      "result": "形成报告 / 比赛方案 / 开源代码",
+      "keywords": ["多模态", "医学影像"]
+    }
+  ],
+  "competitions": [
+    {
+      "name": "竞赛A",
+      "award": "国奖/省奖/校奖",
+      "summary": "详细介绍赛题、你的工作、最终成绩和收获。",
+      "keywords": ["算法", "机器学习"]
+    }
+  ],
+  "preferences": {
+    "accept_direct_phd": true,
+    "fit_threshold": 35,
+    "language": "zh-CN"
+  },
+  "contact": {
+    "email": "your_email@example.com",
+    "phone": "",
+    "feishu_webhook": "https://open.feishu.cn/open-apis/bot/v2/hook/REPLACE_ME"
+  }
+}

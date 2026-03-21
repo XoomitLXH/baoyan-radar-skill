@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 import argparse
 import datetime as dt
 import html
@@ -85,6 +86,15 @@ def extract_links(html_content: str, base_url: str) -> List[Tuple[str, str]]:
             continue
         full = urllib.parse.urljoin(base_url, href)
         anchor_text = normalize_space(re.sub(r"<[^>]+>", " ", html.unescape(anchor_html)))
+        if not anchor_text:
+            title_match = re.search(r"title=[\"']([^\"']+)[\"']", anchor_html, flags=re.I)
+            if title_match:
+                anchor_text = normalize_space(html.unescape(title_match.group(1)))
+        if not anchor_text:
+            before = html_content[max(0, html_content.find(href) - 220): html_content.find(href) + 220]
+            title_match = re.search(r"title=[\"']([^\"']+)[\"']", before, flags=re.I)
+            if title_match:
+                anchor_text = normalize_space(html.unescape(title_match.group(1)))
         links.append((full, anchor_text))
     seen = set()
     deduped = []
@@ -94,6 +104,139 @@ def extract_links(html_content: str, base_url: str) -> List[Tuple[str, str]]:
         seen.add(url)
         deduped.append((url, text))
     return deduped
+
+
+def source_level(source: Dict) -> str:
+    return str(source.get("source_level", "")).strip().lower()
+
+
+COMMON_CHINESE_SURNAMES = set("赵钱孙李周吴郑王冯陈褚卫蒋沈韩杨朱秦尤许何吕施张孔曹严华金魏陶姜戚谢邹喻柏水窦章云苏潘葛奚范彭郎鲁韦昌马苗凤花方俞任袁柳酆鲍史唐费廉岑薛雷贺倪汤滕殷罗毕郝邬安常乐于时傅皮卞齐康伍余元卜顾孟平黄和穆萧尹姚邵湛汪祁毛禹狄米贝明臧计伏成戴谈宋茅庞熊纪舒屈项祝董梁杜阮蓝闵席季麻强贾路娄危江童颜郭梅盛林钟徐邱骆高夏蔡田樊胡凌霍虞万支柯昝管卢莫经房裘缪干解应宗丁宣贲邓郁单杭洪包诸左石崔吉龚程嵇邢滑裴陆荣翁荀羊於惠甄曲家封储靳焦牧山蔡田樊胡霍虞万支柯昝管卢莫房裘缪干解应宗丁宣贲邓郁单杭洪包诸左石崔吉龚程嵇邢裴陆荣翁荀羊於惠甄曲家封储靳焦牧山乌巴弓谷车侯宓蓬全郗班仰秋仲伊宫宁仇栾暴甘斜厉戎祖武符刘景詹束龙叶幸司韶郜黎蓟薄印宿白怀蒲邰从鄂索籍赖卓蔺屠蒙池乔阴胥能苍双闻莘党翟谭贡劳逄姬申扶堵冉宰郦雍却璩桑桂濮牛寿通边扈燕冀郏浦尚农温别庄晏柴瞿阎充慕连茹习宦艾鱼容向古易慎戈廖庾终暨居衡步都耿满弘匡国文寇广禄阙东欧殳沃利蔚越夔隆师巩厍聂晁勾敖融冷訾辛阚那简饶空曾毋沙乜养鞠须丰巢关蒯相查后荆红游竺权逯盖益桓公")
+COMPOUND_SURNAMES = {"欧阳", "司马", "上官", "诸葛", "司徒", "司空", "夏侯", "皇甫", "东方", "尉迟", "公孙", "长孙", "慕容", "令狐", "钟离", "宇文", "闻人", "轩辕", "澹台", "公冶", "宗政", "濮阳", "淳于", "单于", "太叔", "申屠", "公羊", "仲孙", "闾丘", "左丘", "东门", "西门", "南宫"}
+
+
+def looks_like_chinese_name(text: str) -> bool:
+    simple = re.sub(r"(?:老师|教授|副教授|研究员|博导)$", "", normalize_space(text)).replace(" ", "")
+    if not re.fullmatch(r"[\u4e00-\u9fa5]{2,4}", simple):
+        return False
+    if simple[:2] in COMPOUND_SURNAMES:
+        return True
+    return simple[0] in COMMON_CHINESE_SURNAMES
+
+
+def looks_like_person_anchor(text: str) -> bool:
+    text = normalize_space(text)
+    if not text:
+        return False
+    lowered = text.lower()
+    if "@" in text:
+        return False
+    generic_terms = [
+        "首页", "旧版", "people", "project", "projects", "publications", "teaching", "contact", "news", "教学日历",
+        "学院", "大学", "中心", "实验室", "研究组", "团队", "教育", "工作", "活动", "公告", "新闻", "平台", "报告", "资源",
+        "概况", "简介", "沿革", "联系", "高层次人才", "本科生教育", "研究生教育", "招生工作", "学术交流", "学术讲座", "校外导师",
+        "领导", "机构", "校友", "制度", "流程", "下载", "国际交流", "科研进展", "项目申报", "学习资料",
+        "主页", "映像", "荣休教师", "专任教师", "管理服务", "微笑在线", "实验中心", "现任领导", "组织机构", "办事流程", "常用下载", "学院简介", "历史沿革"
+    ]
+    if any(term.lower() in lowered for term in generic_terms):
+        return False
+    if looks_like_chinese_name(text):
+        return True
+    if re.fullmatch(r"(?:Dr\.?\s+)?[A-Z][A-Za-z\-]{1,20}(?:\s+[A-Z][A-Za-z\-]{1,20}){0,3}", text):
+        return True
+    return any(key in lowered for key in ["teacher", "faculty", "professor", "researcher", "homepage", "个人主页"])
+
+
+def looks_like_directory_link(url: str, anchor_text: str) -> bool:
+    blob = f"{url} {anchor_text}".lower()
+    return any(key in blob for key in [
+        "list",
+        "index",
+        "cat/",
+        "javascript:",
+        "news",
+        "notice",
+        "article",
+        "download",
+        "login",
+        "search",
+        "招生",
+        "新闻",
+        "通知",
+        "公告",
+        "活动",
+    ])
+
+
+def is_generic_mentor_source(source: Dict) -> bool:
+    blob = " ".join([
+        str(source.get("name", "")),
+        str(source.get("mentor", "")),
+        str(source.get("url", "")),
+    ])
+    return any(key in blob for key in ["导师团队", "教师名录", "专任教师", "院外研究生导师", "师资队伍", "导师", "教师"])
+
+
+def is_generic_lab_source(source: Dict) -> bool:
+    blob = " ".join([
+        str(source.get("name", "")),
+        str(source.get("lab", "")),
+        str(source.get("url", "")),
+    ])
+    return any(key in blob for key in ["院实验室", "实验室列表", "实验室", "研究组", "团队"]) and not any(
+        key in blob for key in ["LAMDA", "BCMI", "AIAR", "机器智能研究所", "计算机应用研究所", "媒体智能感知与内容理解研究组", "智能图形和三维视觉研究组"]
+    )
+
+
+def extract_entity_links(page: FetchResult, source: Dict) -> List[Tuple[str, str]]:
+    level = source_level(source)
+    if level not in {"mentor", "lab"}:
+        return []
+
+    title_blob = f"{page.title} {source.get('name', '')}".lower()
+    if level == "mentor" and not is_generic_mentor_source(source):
+        return [(page.final_url, source.get("mentor", "") or page.title or source.get("name", ""))]
+    if level == "lab" and not is_generic_lab_source(source):
+        return [(page.final_url, source.get("lab", "") or page.title or source.get("name", ""))]
+
+    links = extract_links(page.html, page.final_url)
+    candidates: List[Tuple[str, str]] = []
+    for url, anchor_text in links:
+        if not url.startswith(("http://", "https://")):
+            continue
+        anchor_text = normalize_space(anchor_text)
+        if level == "mentor":
+            if looks_like_directory_link(url, anchor_text):
+                continue
+            if anchor_text.lower() in {"首页", "旧版", "people", "project", "projects", "publications", "teaching", "contact", "news", "教学日历", "了解更多"} and not re.search(r"/teacher/\d+", url):
+                continue
+            if re.search(r"/teacher/\d+", url):
+                candidates.append((url, anchor_text))
+                continue
+            if re.search(r"/info/\d+/\d+\.htm", url) or "/zh_cn/" in url.lower() or re.search(r"/\d{4}/\d{4}/.+/page\.htm", url):
+                if looks_like_person_anchor(anchor_text):
+                    candidates.append((url, anchor_text or source.get("mentor", "")))
+                continue
+            source_host = urllib.parse.urlparse(page.final_url).netloc.lower()
+            target_host = urllib.parse.urlparse(url).netloc.lower()
+            host_changed = bool(target_host and target_host != source_host)
+            personal_host = any(token in target_host for token in ["github.io", "netlify.app", "page.tl", "nuoku.vip", "hebing.cn", "aidac-shu.com", "dlcloud.info"])
+            if looks_like_person_anchor(anchor_text) and (host_changed or personal_host):
+                candidates.append((url, anchor_text or source.get("mentor", "")))
+                continue
+        elif level == "lab":
+            if looks_like_directory_link(url, anchor_text):
+                continue
+            if any(key in f"{url} {anchor_text}".lower() for key in ["lab", "group", "team", "实验室", "研究组", "团队"]) or re.search(r"/\d{4}/\d{4}/.+/page\.htm", url):
+                candidates.append((url, anchor_text or source.get("lab", "")))
+
+    if candidates:
+        return dedupe_pairs(candidates)[:MAX_LINKS_PER_SOURCE]
+
+    if level == "mentor" and any(key in title_blob for key in ["老师", "导师", "教授", "研究员", "homepage", "faculty", "teacher"]):
+        return [(page.final_url, page.title or source.get("mentor", "") or source.get("name", ""))]
+    if level == "lab":
+        return [(page.final_url, page.title or source.get("lab", "") or source.get("name", ""))]
+    return []
 
 
 def sentence_windows(text: str, keywords: List[str], window: int = 80, limit: int = 5) -> List[str]:
@@ -225,12 +368,14 @@ def init_db(path: str) -> sqlite3.Connection:
             fit_score INTEGER,
             deadline_text TEXT,
             content_kind TEXT,
-            source_tier TEXT
+            source_tier TEXT,
+            source_level TEXT
         )
         """
     )
     ensure_column(conn, "notices", "content_kind", "TEXT")
     ensure_column(conn, "notices", "source_tier", "TEXT")
+    ensure_column(conn, "notices", "source_level", "TEXT")
     conn.commit()
     return conn
 
@@ -244,8 +389,8 @@ def mark_seen(conn: sqlite3.Connection, item: Dict, source: Dict) -> None:
     conn.execute(
         """
         INSERT OR REPLACE INTO notices
-        (url, source_name, title, first_seen_at, fit_score, deadline_text, content_kind, source_tier)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        (url, source_name, title, first_seen_at, fit_score, deadline_text, content_kind, source_tier, source_level)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         """,
         (
             item.get("url", ""),
@@ -256,6 +401,7 @@ def mark_seen(conn: sqlite3.Connection, item: Dict, source: Dict) -> None:
             item.get("deadline", {}).get("deadline_text", ""),
             item.get("content_kind", source_content_kind(source)),
             source.get("tier", ""),
+            source_level(source),
         ),
     )
     conn.commit()
@@ -534,6 +680,12 @@ def discover_candidates(source: Dict, targets: Dict) -> List[Tuple[str, str]]:
     include_keywords = merged_include_keywords(targets, source)
     exclude_keywords = merged_exclude_keywords(targets, source)
 
+    level = source_level(source)
+    if level in {"mentor", "lab"}:
+        entity_links = extract_entity_links(page, source)
+        if entity_links:
+            return entity_links
+
     # Experience sources are usually single posts/pages.
     # Default to analyzing the source page itself only, unless explicitly configured to follow links.
     if source_content_kind(source) == "experience" and not source.get("follow_links", False):
@@ -568,6 +720,8 @@ def threshold_for_source(profile: Dict, source: Dict) -> int:
     prefs = profile.get("preferences", {}) or {}
     if source_content_kind(source) == "experience":
         return int(source.get("fit_threshold", prefs.get("experience_fit_threshold", 22)))
+    if source_level(source) in {"mentor", "lab"} and "fit_threshold" not in source:
+        return int(prefs.get("mentor_fit_threshold", 16))
     return int(source.get("fit_threshold", prefs.get("fit_threshold", 35)))
 
 
@@ -598,7 +752,7 @@ def run_once(
         except Exception as e:
             print(f"[WARN] source failed: {source.get('name', source.get('url'))}: {e}", file=sys.stderr)
             continue
-        for url, _anchor_text in candidates:
+        for url, anchor_text in candidates:
             if already_seen(conn, url):
                 continue
             try:
@@ -607,11 +761,17 @@ def run_once(
                 print(f"[WARN] candidate fetch failed: {url}: {e}", file=sys.stderr)
                 continue
             item = summarize_page(page, profile, source)
+            clean_anchor = normalize_space(anchor_text)
+            if clean_anchor and source_level(source) == "mentor" and looks_like_person_anchor(clean_anchor):
+                item["title"] = clean_anchor
+            if clean_anchor and source_level(source) == "lab" and any(key in clean_anchor.lower() for key in ["lab", "group", "team", "实验室", "研究组", "团队"]):
+                item["title"] = clean_anchor
             page_text = page.title + "\n" + page.text
             if keyword_hits(page_text, merged_exclude_keywords(targets, source)):
                 mark_seen(conn, item, source)
                 continue
-            if not keyword_hits(page_text, merged_include_keywords(targets, source)):
+            include_hits = keyword_hits(page_text, merged_include_keywords(targets, source))
+            if not include_hits and source_level(source) not in {"mentor", "lab"}:
                 continue
             if item["fit"]["score"] < threshold_for_source(profile, source):
                 continue

@@ -5,3 +5,7 @@ state/
 __pycache__/
 *.pyc
 .DS_Store
+dashboard/node_modules/
+dashboard/dist/
+dist/*.skill
+!dist/baoyan-radar.skill

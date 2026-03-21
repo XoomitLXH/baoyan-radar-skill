@@ -1,0 +1,12 @@
+{
+  "name": "baoyan-radar-dashboard",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json && node scripts/copy-assets.mjs"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.2"
+  }
+}

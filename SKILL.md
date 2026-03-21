@@ -1,9 +1,9 @@
 ---
 name: baoyan-radar
-description: Personalized Chinese recommendation-exemption admissions (保研/推免) radar and decision support for monitoring university notice pages, filtering summer camp / 预推免 / 推免直博 announcements against a student's profile, deduplicating results, extracting deadlines and material requirements, pushing matched alerts, and generating mentor-fit / outreach support. Use when creating, configuring, running, or debugging a reusable admissions-intelligence system that must keep personal profile data in local private config instead of committing it to GitHub.
+description: Personalized local-first Chinese recommendation-exemption admissions (保研/推免) radar and workflow platform for monitoring university notice pages, collecting experience sources, filtering summer camp / 预推免 / 推免直博 announcements against a student's profile, extracting deadlines and material requirements, pushing matched alerts, supporting mentor/lab fit analysis, and serving a local dashboard. Use when creating, configuring, running, or debugging a reusable admissions-intelligence system that must keep personal profile data in local private config instead of committing it to GitHub.
 ---
 
-# Baoyan Radar
+# Baoyan Radar Platform
 
 Build a reusable 保研情报雷达 that can be published publicly while keeping each user's personal academic profile private.
 
@@ -94,6 +94,20 @@ python3 scripts/install_daily_schedule.py \
 ```
 
 On macOS this creates a LaunchAgent. On Windows it creates a Scheduled Task.
+
+Run the local dashboard after building the frontend:
+
+```bash
+cd dashboard
+npm install
+npm run build
+cd ..
+python3 scripts/run_dashboard.py
+```
+
+Default address: `http://127.0.0.1:8787/`
+
+Use the dashboard when the user needs a local platform view for filtering notices, tracking statuses, adding notes, seeing recent deadlines, or triggering scans interactively.
 
 Analyze a single notice page:
 

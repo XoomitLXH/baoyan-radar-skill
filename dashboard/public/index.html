@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Baoyan Radar Dashboard</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">保研监控面板</p>
+          <h1>Baoyan Radar Dashboard</h1>
+          <p class="subtitle">把保研通知、经验参考、处理状态和扫描记录放到一个页面里看。</p>
+        </div>
+        <div class="hero-actions">
+          <button id="scanButton" class="primary">立即扫描</button>
+          <button id="enrichButton" class="ghost">提取摘要</button>
+          <button id="refreshButton" class="ghost">刷新数据</button>
+        </div>
+      </header>
+
+      <section class="status-strip">
+        <div id="scanStatus" class="scan-status">扫描状态：未启动</div>
+        <div id="configHint" class="scan-status muted">提示：若未完成 profile/targets 配置，先运行 setup_web.py。</div>
+      </section>
+
+      <section id="overviewGrid" class="overview-grid"></section>
+
+      <section id="highlightsGrid" class="highlights-grid"></section>
+
+      <section class="assistant-panel card">
+        <div class="assistant-panel-head">
+          <div>
+            <h2>对话式控制</h2>
+            <p class="muted">直接输入一句话，比如：请帮我扫描上海交通大学的老师。</p>
+          </div>
+          <button id="assistantSubmitButton" class="primary">发送并刷新</button>
+        </div>
+        <div class="assistant-panel-body">
+          <textarea id="assistantInput" rows="3" placeholder="例如：请帮我扫描上海交通大学的老师；扫描中科大实验室；刷新武大的老师列表"></textarea>
+          <div id="assistantOutput" class="assistant-output muted">我会根据你的文字自动匹配学校、老师/实验室来源，扫描后刷新列表。</div>
+        </div>
+      </section>
+
+      <section class="filters card">
+        <div class="filter-row">
+          <label>
+            类型
+            <select id="kindFilter">
+              <option value="all">全部</option>
+              <option value="official">官方情报</option>
+              <option value="experience">经验参考</option>
+            </select>
+          </label>
+          <label>
+            状态
+            <select id="statusFilter">
+              <option value="all">全部</option>
+              <option value="new">新发现</option>
+              <option value="watching">跟进中</option>
+              <option value="applied">已处理</option>
+              <option value="ignored">忽略</option>
+            </select>
+          </label>
+          <label>
+            分区
+            <select id="categoryFilter">
+              <option value="all">全部</option>
+              <option value="school">学院</option>
+              <option value="lab">实验室</option>
+              <option value="teacher">老师</option>
+            </select>
+          </label>
+          <label>
+            来源/学校
+            <select id="sourceFilter">
+              <option value="all">全部</option>
+            </select>
+          </label>
+          <label>
+            排序
+            <select id="sortFilter">
+              <option value="latest">最新优先</option>
+              <option value="fit">匹配度优先</option>
+              <option value="deadline">DDL 优先</option>
+            </select>
+          </label>
+          <label class="checkline">
+            <input id="onlyActionableFilter" type="checkbox" checked />
+            只看高价值
+          </label>
+          <label class="grow">
+            搜索
+            <input id="queryInput" type="search" placeholder="搜标题 / 来源 / 备注" />
+          </label>
+        </div>
+      </section>
+
+      <section class="layout-grid">
+        <main>
+          <div class="section-title-row">
+            <h2>信息列表</h2>
+            <span id="resultCount" class="muted"></span>
+          </div>
+          <div id="noticeList" class="notice-list"></div>
+        </main>
+
+        <aside>
+          <div class="card side-card">
+            <h2>最近扫描日志</h2>
+            <pre id="scanLog" class="log-box">暂无日志</pre>
+          </div>
+          <div class="card side-card">
+            <h2>使用建议</h2>
+            <ul class="tips">
+              <li>先把真正重要的通知标成 <strong>跟进中</strong>。</li>
+              <li>经验贴可以标星，后续统一复盘。</li>
+              <li>看到截止日期近的通知，优先看材料和申请流程。</li>
+              <li>等你确认页面顺手后，再把股票模块接进同一套面板。</li>
+            </ul>
+          </div>
+        </aside>
+      </section>
+    </div>
+
+    <template id="noticeTemplate">
+      <article class="notice-card card">
+        <div class="notice-top">
+          <div>
+            <div class="badge-row">
+              <span data-role="kindBadge" class="badge"></span>
+              <span data-role="categoryBadge" class="badge badge-category"></span>
+              <span data-role="tierBadge" class="badge badge-tier"></span>
+              <span data-role="statusBadge" class="badge badge-status"></span>
+            </div>
+            <h3><a data-role="titleLink" target="_blank" rel="noreferrer"></a></h3>
+            <p data-role="metaLine" class="meta-line"></p>
+            <div data-role="quickLinks" class="quick-links" hidden></div>
+          </div>
+          <button data-role="starButton" class="star-button" title="标星">☆</button>
+        </div>
+        <div class="metric-row">
+          <div class="metric">
+            <span class="metric-label">匹配度</span>
+            <strong data-role="fitScore"></strong>
+          </div>
+          <div class="metric">
+            <span class="metric-label">DDL</span>
+            <strong data-role="deadlineText"></strong>
+          </div>
+          <div class="metric">
+            <span class="metric-label">首次记录</span>
+            <strong data-role="firstSeen"></strong>
+          </div>
+        </div>
+        <p data-role="summary" class="summary"></p>
+        <div class="controls-row">
+          <label>
+            状态
+            <select data-role="statusSelect">
+              <option value="new">新发现</option>
+              <option value="watching">跟进中</option>
+              <option value="applied">已处理</option>
+              <option value="ignored">忽略</option>
+            </select>
+          </label>
+          <button data-role="saveButton" class="ghost small">保存</button>
+        </div>
+        <label class="notes-block">
+          备注
+          <textarea data-role="notesInput" rows="3" placeholder="比如：等成绩单、需要联系导师、重点盯截止日期……"></textarea>
+        </label>
+      </article>
+    </template>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
+role="notesInput" rows="3" placeholder="比如：等成绩单、需要联系导师、重点盯截止日期……"></textarea>
+        </label>
+      </article>
+    </template>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
